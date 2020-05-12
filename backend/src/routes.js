@@ -1,11 +1,9 @@
 import { Router } from 'express';
 
+import UserController from './app/controllers/UserController';
+
 const routes = Router();
 
-routes.get('/pimba', (req, res) => {
-    const { name } = req.body;
-
-    return res.json({ message: `${name} eh nome de viado seu filha da puta` });
-});
+routes.post('/users', UserController.store);
 
 export default routes;
