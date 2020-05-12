@@ -1,7 +1,11 @@
-const { Router } = require("express");
+import { Router } from 'express';
 
 const routes = Router();
 
-routes.get();
+routes.get('/pimba', (req, res) => {
+    const { name } = req.body;
 
-module.exports = routes;
+    return res.json({ message: `${name} eh nome de viado seu filha da puta` });
+});
+
+export default routes;
