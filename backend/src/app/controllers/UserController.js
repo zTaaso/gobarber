@@ -33,7 +33,6 @@ class UserController {
             oldPassword: Yup.string().min(6),
             password: Yup.string()
                 .min(6)
-                .notOneOf([Yup.ref('oldPassword')])
                 .when('oldPassword', (oldPassword, field) =>
                     oldPassword ? field.required() : field
                 ),
@@ -67,9 +66,9 @@ class UserController {
             return res.status(401).json({ error: 'Password does not match.' });
         }
 
-        const { id, name, provider } = await user.update(req.body);
+        const { id, name, provider, avatar_id } = await user.update(req.body);
 
-        return res.json({ id, name, email, provider });
+        return res.json({ id, name, email, provider, avatar_id });
     }
 }
 
