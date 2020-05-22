@@ -21,6 +21,16 @@ class NotificationController {
     }
 
     async update(req, res) {
+        const isProvider = await User.findOne({
+            where: { id: req.userId, provider: true },
+        });
+
+        if (!isProvider) {
+            return res
+                .status(401)
+                .json({ error: 'Only providers can read notifications.' });
+        }
+
         const { id } = req.params;
         const notifications = await Notification.findByIdAndUpdate(
             id,
