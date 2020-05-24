@@ -168,7 +168,7 @@ class AppointmentController {
 
         await Mail.sendMail({
             to: `${appointment.provider.name} <${appointment.provider.email}>`,
-            subject: 'Agendamento cancelado',
+            subject: 'Agendamento canceladoo',
             template: 'cancellation',
             context: {
                 provider: appointment.provider.name,
