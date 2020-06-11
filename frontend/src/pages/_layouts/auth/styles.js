@@ -27,10 +27,22 @@ export const Content = styled.div`
       height: 44px;
       padding: 0 15px;
       color: #fff;
-      margin: 0 0 10px;
+      margin: 0 0 5px;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    span {
+      color: #fb6f91;
+      font-size: 13px;
+      margin: 0 0 10px;
+
+      svg {
+        position: relative;
+        top: 5px;
+        left: 5px;
       }
     }
 
