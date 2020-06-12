@@ -19,18 +19,30 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+    padding: 0 50px;
 
     input {
       background: rgba(0, 0, 0, 0.1);
       border: 0;
       border-radius: 4px;
+      width: 215px;
       height: 44px;
       padding: 0 15px;
       color: #fff;
       margin: 0 0 5px;
+      position: relative;
+      right: 0;
+      transition: 0.5s;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
+      }
+
+      &:focus,
+      &:hover {
+        width: ${215 + 50}px;
+        right: ${50 / 2}px;
+        transition: width right 0.5s;
       }
     }
 
@@ -48,6 +60,7 @@ export const Content = styled.div`
 
     button {
       margin: 5px 0 0;
+      width: 215px;
       height: 44px;
       background: #3b9eff;
       font-weight: bold;
@@ -55,10 +68,15 @@ export const Content = styled.div`
       border: 0;
       border-radius: 4px;
       font-size: 16px;
-      transition: background 0.4s;
+      transition: 0.4s;
+      position: relative;
+      right: 0;
 
       &:hover {
         background: ${darken(0.05, '#3b9eff')};
+        width: ${215 + 50}px;
+        right: ${50 / 2}px;
+        transition: width right background 0.5s;
       }
     }
 
