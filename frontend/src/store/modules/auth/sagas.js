@@ -1,31 +1,64 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { signInSuccess } from './actions';
+import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
-  const { email, password } = payload;
-
-  let response;
-
   try {
-    response = yield call(api.post, 'sessions', { email, password });
-  } catch (error) {
-    return;
+    const { email, password } = payload;
+    const response = yield call(api.post, 'sessions', { email, password });
+
+    const { token, user } = response.data;
+
+    if (!user.provider) {
+      toast.error('Usuário não é prestador!');
+
+      return;
+    }
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
+
+    yield put(signInSuccess(token, user));
+    history.push('/dashboard');
+  } catch (err) {
+    toast.error('Falha na autenticação, verifique seus dados.');
+    yield put(signFailure());
   }
-
-  const { token, user } = response.data;
-
-  if (!user.provider) {
-    console.tron.log('Usuário não é prestador!');
-    alert('Usuário não é prestador!');
-    return;
-  }
-  yield put(signInSuccess(token, user));
-
-  history.push('/dashboard');
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+    yield call(api.post, 'users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+    history.push('/');
+  } catch (err) {
+    toast.error('Algo deu errado. Por favor tente novamente.');
+    yield put(signFailure());
+  }
+}
+
+function setToken({ payload }) {
+  if (!payload) {
+    return;
+  }
+
+  const { token } = payload.auth;
+  console.log(token);
+  if (token) {
+    api.defaults.headers.authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('persist/REHYDRATE', setToken),
+]);
