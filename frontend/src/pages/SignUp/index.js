@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { MdErrorOutline } from 'react-icons/md';
-
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import Input from '~/components/Input';
+
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.svg';
 // import { Container } from './styles';
@@ -20,11 +22,17 @@ const schema = Yup.object().shape({
 });
 
 function SignUp() {
+  const dispatch = useDispatch();
+
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
 
-  async function handleSubmit(data, { reset }) {
+  function handleSubmit({ name, email, password }) {
+    dispatch(signUpRequest(name, email, password));
+  }
+
+  async function handleValidate(data, { reset }) {
     setEmailError('');
 
     setPasswordError('');
@@ -32,6 +40,8 @@ function SignUp() {
 
     try {
       await schema.validate(data, { abortEarly: false });
+
+      handleSubmit(data);
       reset();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -42,7 +52,7 @@ function SignUp() {
               break;
             case 'password':
               // this condition grants that password will always be setted with the first password error
-              if (index === 2) setPasswordError(error.message);
+              if (index === 2 || index === 0) setPasswordError(error.message);
 
               break;
             case 'name':
@@ -59,7 +69,7 @@ function SignUp() {
     <>
       <img src={logo} alt="GoBarber" />
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleValidate}>
         <Input type="text" name="name" placeholder="Nome completo" />
         {nameError && (
           <span>

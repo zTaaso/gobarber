@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MdErrorOutline } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -20,6 +20,7 @@ const schema = Yup.object().shape({
 
 function SignIn() {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -74,7 +75,7 @@ function SignIn() {
           </span>
         )}
 
-        <button type="submit">Acessar</button>
+        <button type="submit">{loading ? 'Carregando' : 'Acessar'}</button>
         <Link to="/register">Criar conta gratuita</Link>
       </Form>
     </>
