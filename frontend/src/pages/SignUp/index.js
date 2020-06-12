@@ -14,7 +14,9 @@ const schema = Yup.object().shape({
   email: Yup.string()
     .email('Insira um e-mail válido')
     .required('O e-mail é obrigatório'),
-  password: Yup.string().required('A senha é obrigatória'),
+  password: Yup.string()
+    .required('A senha é obrigatória')
+    .min(6, 'A senha deve ter pelo menos 6 caracteres'),
 });
 
 function SignUp() {
@@ -24,6 +26,7 @@ function SignUp() {
 
   async function handleSubmit(data, { reset }) {
     setEmailError('');
+
     setPasswordError('');
     setNameError('');
 
@@ -32,13 +35,15 @@ function SignUp() {
       reset();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        err.inner.forEach((error) => {
+        err.inner.forEach((error, index) => {
           switch (error.path) {
             case 'email':
               setEmailError(error.message);
               break;
             case 'password':
-              setPasswordError(error.message);
+              // this condition grants that password will always be setted with the first password error
+              if (index === 2) setPasswordError(error.message);
+
               break;
             case 'name':
               setNameError(error.message);

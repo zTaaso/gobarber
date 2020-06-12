@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { MdErrorOutline } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+
 import Input from '~/components/Input';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.svg';
 
@@ -15,16 +19,22 @@ const schema = Yup.object().shape({
 });
 
 function SignIn() {
+  const dispatch = useDispatch();
+
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  async function handleSubmit(data, { reset }) {
+  async function handleSubmit({ email, password }) {
+    dispatch(signInRequest(email, password));
+  }
+
+  async function handleValidation(data, { reset }) {
     setEmailError('');
     setPasswordError('');
 
     try {
       await schema.validate(data, { abortEarly: false });
-      reset();
+      handleSubmit(data);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         err.inner.forEach((error) => {
@@ -38,6 +48,7 @@ function SignIn() {
             default:
           }
         });
+        reset();
       }
     }
   }
@@ -46,7 +57,7 @@ function SignIn() {
     <>
       <img src={logo} alt="GoBarber" />
 
-      <Form onSubmit={handleSubmit} schema={schema}>
+      <Form onSubmit={handleValidation} schema={schema}>
         <Input type="email" name="email" placeholder="Seu email" />
         {emailError && (
           <span>
