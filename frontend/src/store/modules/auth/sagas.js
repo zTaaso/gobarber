@@ -51,7 +51,6 @@ function setToken({ payload }) {
   }
 
   const { token } = payload.auth;
-  console.log(token);
   if (token) {
     api.defaults.headers.authorization = `Bearer ${token}`;
   }
