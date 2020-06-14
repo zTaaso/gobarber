@@ -17,12 +17,14 @@ export default createGlobalStyle`
     outline: 0;
   }
 
-  html, body, #root {
+  html, #root, body {
     height: 100%;
   }
 
   body {
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+
   }
 
   body, input, button {
