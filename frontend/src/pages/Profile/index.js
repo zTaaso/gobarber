@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form } from '@unform/web';
 
 import Input from '~/components/Input';
+import AvatarInput from './AvatarInput';
 
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
@@ -19,6 +20,8 @@ function Profile() {
   return (
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
+        <AvatarInput name="avatar_id" />
+
         <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Endereço de e-mail" />
 
