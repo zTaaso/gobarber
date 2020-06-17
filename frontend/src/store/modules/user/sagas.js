@@ -6,9 +6,14 @@ import { updateProfileSuccess } from './actions';
 export function* updateProfile({ payload }) {
   try {
     const { data } = payload;
-    const { email, name, ...rest } = data;
+    const { email, name, avatar_id, ...rest } = data;
 
-    const profile = { email, name, ...(rest.oldPassword ? rest : {}) };
+    const profile = {
+      email,
+      name,
+      avatar_id,
+      ...(rest.oldPassword ? rest : {}),
+    };
 
     const response = yield call(api.put, 'users', profile);
 
