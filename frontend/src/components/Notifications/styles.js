@@ -71,6 +71,7 @@ export const Notification = styled.div`
   }
 
   time {
+    display: block;
     font-size: 12px;
     opacity: 0.6;
   }
@@ -80,8 +81,7 @@ export const Notification = styled.div`
     border: 0;
     background: none;
     color: ${lighten(0.2, '#7159c1')};
-    padding: 0 5px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 6px;
   }
 
   ${(props) =>
@@ -94,6 +94,7 @@ export const Notification = styled.div`
         width: 7px;
         height: 7px;
         border-radius: 50%;
+        margin-left: 5px;
       }
     `}
 `;
