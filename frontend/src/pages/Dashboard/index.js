@@ -7,7 +7,6 @@ import {
   setMinutes,
   setSeconds,
   isBefore,
-  isEqual,
   parseISO,
   isSameHour,
 } from 'date-fns';
@@ -53,14 +52,9 @@ function Dashboard() {
         return {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
-          appointment: response.data.find((a) => {
-            console.log({
-              apDate: parseISO(a.date).getTime(),
-              checkDate: checkDate.getTime(),
-              isIgual: isSameHour(parseISO(a.date), checkDate),
-            });
-            return isSameHour(parseISO(a.date), checkDate);
-          }),
+          appointment: response.data.find((a) =>
+            isSameHour(parseISO(a.date), checkDate)
+          ),
         };
       });
 
