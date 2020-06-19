@@ -11,7 +11,7 @@ export const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 5px;
 
     input {
       background: rgba(0, 0, 0, 0.1);
