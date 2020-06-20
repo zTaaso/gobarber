@@ -18,7 +18,7 @@ export function* updateProfile({ payload }) {
     const response = yield call(api.put, 'users', profile);
 
     yield put(updateProfileSuccess(response.data));
-    toast.success('Usuário editado com suecesso!');
+    toast.success('Usuário editado com sucesso!');
   } catch (err) {
     toast.error('Algo deu errado. Verifique seus dados e tente novamente. ');
   }
