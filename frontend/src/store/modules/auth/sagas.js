@@ -56,8 +56,14 @@ function setToken({ payload }) {
   }
 }
 
+function signOut() {
+  api.defaults.headers.authorization = null;
+  history.push('/');
+}
+
 export default all([
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@auth/SIGN_OUT', signOut),
   takeLatest('persist/REHYDRATE', setToken),
 ]);
