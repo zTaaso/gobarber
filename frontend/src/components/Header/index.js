@@ -22,7 +22,7 @@ function Header() {
       }
     }
     getAvatar();
-  }, []);
+  }, [profile]);
 
   return (
     <Container>
@@ -41,7 +41,7 @@ function Header() {
               <strong>{profile.name}</strong>
               <Link to="/profile">Meu perfil</Link>
             </div>
-            <img src={avatarUrl} alt={profile.name} />
+            <img src={avatarUrl} alt={profile ? profile.name : 'Avatar'} />
           </Profile>
         </aside>
       </Content>
