@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Proptypes from 'prop-types';
 import { Image } from 'react-native';
 
 import logo from '~/assets/logo.png';
 
 import Background from '~/components/Background';
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -14,7 +17,19 @@ import {
   SignLinkText,
 } from './styles';
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const passwordRef = useRef();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const loading = useSelector((state) => state.auth.loading);
+
+  function handleSubmit() {
+    dispatch(signInRequest(email, password));
+  }
+
   return (
     <Background>
       <Container>
@@ -27,24 +42,29 @@ const SignIn = () => {
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Digite seu email"
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
           />
 
           <FormInput
             icon="lock-outline"
             secureTextEntry
-            placeholder="Sua senha"
+            placeholder="Sua senhaa"
+            ref={passwordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
 
-          <SubmitButton
-            onPress={() => {
-              console.log('piscou o cú');
-            }}
-          >
+          <SubmitButton loading={loading} onPress={handleSubmit}>
             Acessar
           </SubmitButton>
         </Form>
 
-        <SignLink>
+        <SignLink onPress={() => navigation.navigate('SignUp')}>
           <SignLinkText>Criar conta gratuita</SignLinkText>
         </SignLink>
       </Container>
@@ -53,3 +73,9 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+SignIn.propTypes = {
+  navigation: Proptypes.shape({
+    navigate: Proptypes.func,
+  }).isRequired,
+};
