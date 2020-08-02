@@ -9,7 +9,7 @@ class Queue {
     constructor() {
         this.queues = {};
 
-        this.init();
+        // this.init();
     }
 
     init() {
@@ -22,6 +22,7 @@ class Queue {
             };
         });
     }
+
     add(queue, job) {
         return this.queues[queue].bee.createJob(job).save();
     }
