@@ -5,7 +5,7 @@ import { Container, Text } from './styles';
 
 const Button = ({ children, loading, ...rest }) => {
   return (
-    <Container>
+    <Container {...rest}>
       {loading ? (
         <ActivityIndicator size="small" colo="#fff" />
       ) : (
