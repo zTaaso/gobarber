@@ -6,12 +6,12 @@ import Routes from './routes';
 
 // import { Container } from './styles';
 
-YellowBox.ignoreWarnings(['']);
+YellowBox.ignoreWarnings(['The native module for Flipper']);
 
 const App = () => {
   const signed = useSelector((state) => state.auth.signed);
 
-  return <Routes signed={false} />;
+  return <Routes signed={signed} />;
 };
 
 export default App;
