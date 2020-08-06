@@ -1,4 +1,4 @@
-import { all, takeLatest, call, put, delay } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
 import api from '~/services/api';
@@ -17,13 +17,11 @@ export function* signIn({ payload }) {
         'Erro no login',
         'O usuário não pode ser prestador de serviços! Use a aplicação web.'
       );
-
+      yield put(signFailure());
       return;
     }
 
     api.defaults.headers.authorization = `Bearer ${token}`;
-
-    yield delay(3000);
 
     yield put(signInSuccess(token, user));
     // history.push('/dashboard');
@@ -43,8 +41,10 @@ export function* signUp({ payload }) {
       provider: false,
     });
 
-    yield delay(3000);
-    Alert.alert('Cadastro realizado', 'mama meu cu');
+    Alert.alert(
+      'Cadastro realizado!',
+      'Seu cadastro foi concluído com sucesso.'
+    );
 
     // history.push('/');
   } catch (err) {
