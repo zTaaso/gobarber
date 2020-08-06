@@ -18,7 +18,7 @@ const Appointment = ({ data, onCancel }) => {
           source={{
             uri: data.avatar
               ? data.avatar.url
-              : 'https://api.adorable.io/avatar/50/ztaaso.png',
+              : `https://api.adorable.io/avatars/50/${data.provider.name}.png`,
           }}
         />
 
