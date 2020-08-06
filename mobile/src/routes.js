@@ -8,14 +8,12 @@ import SignUp from './pages/SignUp';
 
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import New from './pages/New';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// const signed = false;
-
 const Routes = ({ signed }) => {
-  // console.log({ signed });
   return (
     <NavigationContainer>
       {signed ? (
@@ -32,6 +30,7 @@ const Routes = ({ signed }) => {
           }}
         >
           <Tab.Screen name="Dashboard" component={Dashboard} />
+          <Tab.Screen name="New" component={New} />
           <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
       ) : (
