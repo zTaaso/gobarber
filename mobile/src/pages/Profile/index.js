@@ -2,10 +2,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from '@expo/vector-icons/MaterialIcons';
-import { View } from 'react-native';
 
 import Background from '~/components/Background';
 import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -14,6 +14,7 @@ import {
   Form,
   FormInput,
   SubmitButton,
+  SignOutButton,
 } from './styles';
 
 const Profile = ({ navigation }) => {
@@ -54,6 +55,10 @@ const Profile = ({ navigation }) => {
         confirmPassword,
       })
     );
+  }
+
+  function handleSignOut() {
+    dispatch(signOut());
   }
 
   return (
@@ -110,7 +115,7 @@ const Profile = ({ navigation }) => {
           <FormInput
             icon="lock-outline"
             secureTextEntry
-            placeholder="Confirmção de senha"
+            placeholder="Confirmação de senha"
             ref={confirmPasswordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
@@ -119,6 +124,7 @@ const Profile = ({ navigation }) => {
           />
 
           <SubmitButton onPress={handleSubmit}>Atualizar perfil</SubmitButton>
+          <SignOutButton onPress={handleSignOut}>Sair</SignOutButton>
         </Form>
       </Container>
     </Background>
