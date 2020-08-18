@@ -17,7 +17,7 @@ import { pt } from 'date-fns/locale';
 import { Container, Time } from './styles';
 import api from '~/services/api';
 
-const range = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+const range = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
 function Dashboard() {
   const [schedule, setSchedule] = useState([]);
