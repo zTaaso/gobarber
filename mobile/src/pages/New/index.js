@@ -1,10 +1,9 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
 import SelectProvider from './SelectProvider';
-import SelectTime from './SelectTime';
+import SelectDateTime from './SelectDateTime';
 import Confirm from './Confirm';
 
 // import { Container } from './styles';
@@ -30,7 +29,8 @@ const New = ({ navigation }) => {
       }}
     >
       <Stack.Screen name="SelectProvider" component={SelectProvider} />
-      <Stack.Screen name="SelectTime" component={SelectTime} />
+      <Stack.Screen name="SelectDateTime" component={SelectDateTime} />
+      <Stack.Screen name="Confirm" component={Confirm} />
     </Stack.Navigator>
   );
 };
