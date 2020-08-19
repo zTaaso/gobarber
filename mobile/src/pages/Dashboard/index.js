@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Icon from '@expo/vector-icons/MaterialIcons';
 import { Alert } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import Icon from '@expo/vector-icons/MaterialIcons';
 
 import api from '~/services/api';
 
@@ -10,8 +11,6 @@ import Appointment from '~/components/Appointment';
 import { Container, Title, List } from './styles';
 
 const Dashboard = ({ navigation }) => {
-  const [refreshing, setRefreshing] = useState(false);
-
   navigation.setOptions({
     title: 'Agendamentos',
     tabBarIcon: ({ color, size }) => (
@@ -19,7 +18,10 @@ const Dashboard = ({ navigation }) => {
     ),
   });
 
+  const isFocused = useIsFocused();
+
   const [appointments, setAppointments] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   async function loadAppointments() {
     setRefreshing(true);
@@ -42,8 +44,12 @@ const Dashboard = ({ navigation }) => {
   }
 
   useEffect(() => {
-    loadAppointments();
-  }, []);
+    console.log(isFocused);
+
+    if (isFocused) {
+      loadAppointments();
+    }
+  }, [isFocused]);
 
   return (
     <Background>
