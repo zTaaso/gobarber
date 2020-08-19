@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import Proptypes from 'prop-types';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
 import api from '~/services/api';
@@ -39,7 +40,8 @@ const SelectProvider = ({ navigation }) => {
             <Provider
               onPress={() =>
                 navigation.navigate('New', {
-                  screen: 'SelectTime',
+                  screen: 'SelectDateTime',
+                  params: { provider },
                 })
               }
             >
@@ -60,3 +62,11 @@ const SelectProvider = ({ navigation }) => {
 };
 
 export default SelectProvider;
+
+SelectProvider.propTypes = {
+  navigation: Proptypes.shape({
+    setOptions: Proptypes.func,
+    navigate: Proptypes.func,
+    goBack: Proptypes.func,
+  }).isRequired,
+};
