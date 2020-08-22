@@ -112,10 +112,10 @@ class AppointmentController {
             }
         );
 
-        await Notification.create({
-            content: `Novo agendamento de ${user.name} para o ${formattedDate}.`,
-            user: provider_id,
-        });
+        // await Notification.create({
+        //     content: `Novo agendamento de ${user.name} para o ${formattedDate}.`,
+        //     user: provider_id,
+        // });
 
         return res.json(appointment);
     }

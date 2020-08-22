@@ -12,7 +12,7 @@ const models = [User, File, Appointment];
 class Database {
     constructor() {
         this.init();
-        this.mongo();
+        // this.mongo();
     }
 
     init() {
