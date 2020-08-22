@@ -9,7 +9,6 @@ export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
     const response = yield call(api.post, 'sessions', { email, password });
-    console.log(response.data);
     const { token, user } = response.data;
 
     if (user.provider) {

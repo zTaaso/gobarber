@@ -27,6 +27,7 @@ const Dashboard = ({ navigation }) => {
     setRefreshing(true);
     const response = await api.get('/appointments');
     setAppointments(response.data);
+
     setRefreshing(false);
   }
 
@@ -44,8 +45,6 @@ const Dashboard = ({ navigation }) => {
   }
 
   useEffect(() => {
-    console.log(isFocused);
-
     if (isFocused) {
       loadAppointments();
     }
