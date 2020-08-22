@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import Proptypes from 'prop-types';
 import Icon from '@expo/vector-icons/MaterialIcons';
 
@@ -19,6 +20,8 @@ const SelectProvider = ({ navigation }) => {
     ),
   });
 
+  const isFocused = useIsFocused();
+
   const [providers, setProviders] = useState([]);
 
   useEffect(() => {
@@ -27,8 +30,11 @@ const SelectProvider = ({ navigation }) => {
 
       setProviders(response.data);
     }
-    loadProviders();
-  }, []);
+
+    if (isFocused) {
+      loadProviders();
+    }
+  }, [isFocused]);
 
   return (
     <Background>
