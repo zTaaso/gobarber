@@ -35,10 +35,6 @@ const Confirm = ({ navigation, route }) => {
         provider_id: provider.id,
         date: time,
       });
-
-      navigation.reset({
-        routes: [{ name: 'New' }],
-      });
       Alert.alert(
         'Agendamento confirmado!',
         format(
@@ -46,13 +42,16 @@ const Confirm = ({ navigation, route }) => {
           `'Seu agendamento foi marcado para ás' H 'horas com o prestador ${provider.name}. ' `
         )
       );
-      navigation.navigate('Dashboard');
+      navigation.reset({
+        routes: [{ name: 'New' }],
+      });
     } catch (err) {
       Alert.alert(
         'Oops!',
         'Algo deu errado ao confirmar o agendamento, tente novamente.'
       );
     }
+    navigation.navigate('Dashboard');
   }
 
   return (
