@@ -25,6 +25,7 @@ export function* signIn({ payload }) {
     yield put(signInSuccess(token, user));
     // history.push('/dashboard');
   } catch (err) {
+    console.log(err);
     Alert.alert('Falha na autenticação', 'Houve um erro no login.');
     yield put(signFailure());
   }
