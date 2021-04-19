@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useField } from '@unform/core';
 
 import { toast } from 'react-toastify';
@@ -7,6 +8,7 @@ import api from '~/services/api';
 
 function AvatarInput() {
   const { defaultValue, registerField } = useField('avatar');
+  const profile = useSelector((state) => state.user.profile);
 
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
   const [file, setFile] = useState(defaultValue && defaultValue.id);
@@ -43,7 +45,8 @@ function AvatarInput() {
       <label htmlFor="avatar">
         <img
           src={
-            preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'
+            preview ||
+            `https://api.hello-avatar.com/adorables/120/${profile.id}`
           }
           alt=""
         />

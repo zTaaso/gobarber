@@ -18,7 +18,7 @@ function Header() {
         await api.get(profile.avatar.url);
         setAvatarUrl(profile.avatar.url);
       } catch (err) {
-        setAvatarUrl('https://api.adorable.io/avatars/50/abott@adorable.png');
+        setAvatarUrl(`https://api.hello-avatar.com/adorables/50/${profile.id}`);
       }
     }
     getAvatar();
