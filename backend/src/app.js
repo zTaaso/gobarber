@@ -9,6 +9,8 @@ import 'express-async-errors';
 import routes from './routes';
 import sentryConfig from './config/sentry';
 
+import FileController from './app/controllers/FileController';
+
 import './database';
 
 class App {
@@ -26,6 +28,7 @@ class App {
         this.server.use(Sentry.Handlers.requestHandler());
         this.server.use(cors());
         this.server.use(express.json());
+        this.server.get('/files/:filename', FileController.index);
         this.server.use(
             '/files',
             express.static(resolve(__dirname, '..', 'tmp', 'uploads'))
